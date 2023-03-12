@@ -51,17 +51,54 @@ function generatePassword() {
   //Include special characters?
   var includeSpecial = window.confirm("Include special characters in your password?");
 
+  //Check if they at least chose 1 type of character
+  trollCheck: if (!includeLowercase && !includeUppercase && !includeNumbers && !includeSpecial) {
+    if (window.confirm("You must include at least one type of characters. Start over?"))
+    {generatePassword();}
+    else {return "You shall not password!"}
+  }
+  else {break trollCheck;}
+
+
   //Create an array of all acceptable characters
-
   var lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz".split("");
-  console.log(lowercaseCharacters)
+  //console.log(lowercaseCharacters)
   var uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  console.log(uppercaseCharacters)
+  //console.log(uppercaseCharacters)
   var numericalCharacters = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  console.log(numericalCharacters)
+  //console.log(numericalCharacters)
   var specialCharacters = ["~","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]","|","?","/"];
-  console.log(specialCharacters)
+  //console.log(specialCharacters)
 
+  var acceptableChars = [];
+  if (includeLowercase) {
+    acceptableChars = acceptableChars.concat(lowercaseCharacters);
+    console.log("Acceptable characters include: "+acceptableChars)
+  }
+  if (includeUppercase) {
+    acceptableChars = acceptableChars.concat(uppercaseCharacters);
+    console.log("Acceptable characters include: "+acceptableChars)
+  }
+  if (includeNumbers) {
+    acceptableChars = acceptableChars.concat(numericalCharacters);
+    console.log("Acceptable characters include: "+acceptableChars)
+  }
+  if (includeSpecial) {
+    acceptableChars = acceptableChars.concat(specialCharacters);
+    console.log("Acceptable characters include: "+acceptableChars)
+  }
   
-  
+  //Create an empty string for a password
+  password = "";
+  //randomly select characters from the acceptable character array to build password
+  for (let x = 0; x < passwordLength; x++) {
+    //pick one random character from the acceptable character array
+    var indexOfChar = Math.floor(Math.random()*acceptableChars.length);
+    //append that random character to the password string
+    password = password +acceptableChars[indexOfChar];
+  }
+  console.log("The password is: "+password)
+  console.log("The password type is: "+password.type)
+  return password;
+
 }
