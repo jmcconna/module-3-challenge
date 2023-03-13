@@ -38,23 +38,35 @@ function generatePassword() {
   //Call the check password length function for the first time
   checkPasswordLength();
 
-  //Include Lowercase?
-  var includeLowercase = window.confirm("Include lowercase characters in your password?", {okText: "Yes", cancelText: "No"});
-  console.log("The value for includeLowercase is: "+includeLowercase )
+  //Booleans for including each type of character
+  var includeLowercase;
+  var includeUppercase;
+  var includeNumbers;
+  var includeSpecial;
 
-  //Include Uppercase?
-  var includeUppercase = window.confirm("Include UPPERCASE characters in your password?");
+  //Function to pick characters to include in the password
+  function pickCharacters() {
+    //Include Lowercase?
+    includeLowercase = window.confirm("Include lowercase characters in your password?");
+    console.log("The value for includeLowercase is: "+includeLowercase )
 
-  //Include numbers?
-  var includeNumbers = window.confirm("Include numbers in your password?");
+    //Include Uppercase?
+    includeUppercase = window.confirm("Include UPPERCASE characters in your password?");
 
-  //Include special characters?
-  var includeSpecial = window.confirm("Include special characters in your password?");
+    //Include numbers?
+    includeNumbers = window.confirm("Include numbers in your password?");
+
+    //Include special characters?
+    includeSpecial = window.confirm("Include special characters in your password?");
+  }
+
+  //Call pick characters for first timeS
+  pickCharacters();
 
   //Check if they at least chose 1 type of character
   trollCheck: if (!includeLowercase && !includeUppercase && !includeNumbers && !includeSpecial) {
     if (window.confirm("You must include at least one type of characters. Start over?"))
-    {generatePassword();}
+    {pickCharacters();}
     else {return "You shall not password!"}
   }
   else {break trollCheck;}
